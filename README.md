@@ -34,6 +34,47 @@ For[i=1,i<=n,i++,sum=0;                                                       # 
 For[j=1,j<=n,j++,If[i!=j,sum=sum+A[[i,j]]*x[[j]]]];
 x[[i]]=N [(RHS[[i]]-sum)/(A[[i,i]])]];
     Print[x]];
-  #Print[x];earlier=x] 
+  #Print[x];earlier=x]
+
+#euler
+f[x_, y_] := 2 x + y
+x0 = 0;
+y0 = 1;
+h = 0.1;
+xf = 1;
+n = (xf - x0)/(h)//N
+Do[xi = x0 + i h; yi+1 = yi + h(2xi + yi),{i, 0, n}]
+TableForm[Table[{xi, yi, - 2 - 2 xi + 3 * Exp[xi]}, {i,0,n}],
+ TableHeadings-> {None, {x, Approx y, Exact y}}]
+Plot1 = ListPlot[Table[{xi, yi}, {i, 0, n}], Joined->True]
+Plot2 = Plot[- 2 - 2 x + 3 * Exp[x],{x, 0, 1}, PlotStyle-> {Red}]
+a = Show[Plot1, Plot2]
+
+#trapezoidal
+f[x_]:=1/(1+x^2);
+a=0;
+b=1;
+c=N[Integrate[f[x],{x,0,1}]];
+Print["the exact value of the integral is:",c]
+Trapezoidal=N[(b-a)/(2)*(f[a]+f[b])];
+Print[Trapezoidal]
+Print[N[Abs[Trapezoidal-c]]]
+
+
+f[x_]:=1/(1+x^2);
+a=0;
+b=1;
+c=N[Integrate[f[x],{x,0,1}]];
+Print["the exact value of the integral is:",c]
+Simpson=N[(b-a)/(6)*(f[a]+4*f[(a+b)]/(2)+f[b])];
+Print[Simpson]
+Print[N[Abs[Simpson-c]]]
+
+
+<img width="720" height="374" alt="image" src="https://github.com/user-attachments/assets/d5aa9ed5-e1aa-4685-97f4-1d6d434cbbb4" />
+
+
+
+
 
 ```

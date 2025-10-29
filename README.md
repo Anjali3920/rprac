@@ -92,5 +92,7 @@ Dividers->{ALLTrue,ALLTrue}]
 ![Image](https://github.com/user-attachments/assets/262ac98c-724a-4e3f-a635-06fc175e6683)
 
 ![Image](https://github.com/user-attachments/assets/923209a5-6904-4eb6-9299-f22486629ad5)
+<img width="1280" height="947" alt="image" src="https://github.com/user-attachments/assets/1670dc4a-2e19-4b3f-bc08-0a67a8ba3260" />
+
 
 

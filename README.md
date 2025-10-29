@@ -71,7 +71,7 @@ Print[Simpson]
 Print[N[Abs[Simpson-c]]]
 
 
-<img width="720" height="374" alt="image" src="https://github.com/user-attachments/assets/20514058-96fa-45fc-b328-e84e7e004c8c" 
+ ![Image](https://github.com/user-attachments/assets/43dd420d-d46a-4202-859c-942d63ac638b)
 
 
 

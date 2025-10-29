@@ -70,6 +70,17 @@ Simpson=N[(b-a)/(6)*(f[a]+4*f[(a+b)]/(2)+f[b])];
 Print[Simpson]
 Print[N[Abs[Simpson-c]]]
 
+#euler
+x[0]=0;
+y[0]=1;
+a=0;b=4;h=1;
+f[x_y_]=x+y;
+x[j_]:=y[j-1]+h;
+y[j_]:=y[j-1]+h*f[x[j-1],y[j-1]];
+Grid[Prepend[Table[{j,N[x[j],2],N[y[j],7]},{j,1,4}],{"j","x[j]","y[j]"}],
+Dividers->{ALLTrue,ALLTrue}]
+
+
 
  ![Image](https://github.com/user-attachments/assets/43dd420d-d46a-4202-859c-942d63ac638b)
 

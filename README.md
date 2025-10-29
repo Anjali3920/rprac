@@ -78,3 +78,5 @@ Print[N[Abs[Simpson-c]]]
 
 
 ```
+![Image](https://github.com/user-attachments/assets/262ac98c-724a-4e3f-a635-06fc175e6683)
+![Image](https://github.com/user-attachments/assets/43dd420d-d46a-4202-859c-942d63ac638b)

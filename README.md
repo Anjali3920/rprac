@@ -296,6 +296,147 @@ plt.grid(True)
 plt.legend()
 plt.show()
 
+######## finite differ
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Constants
+hbar = 1.054571817e-34  # Reduced Planck constant (J·s)
+m = 9.10938356e-31      # Electron mass (kg)
+L = 1e-9                # Length of 1D box = 1 nm
+
+# Discretization
+N = 1000
+dx = L / (N + 1)
+x = np.linspace(0, L, N)
+
+# Hamiltonian using finite difference method
+diag = np.full(N, -2.0)
+off_diag = np.ones(N - 1)
+H = (-hbar**2 / (2 * m * dx**2)) * (np.diag(diag) + np.diag(off_diag, -1) + np.diag(off_diag, 1))
+
+# Solve eigenvalue problem
+E, psi = np.linalg.eigh(H)
+
+# Convert energy from Joules to eV
+eV = 1.602176634e-19
+energies_eV = E / eV
+
+# Normalize wavefunctions
+for i in range(3):
+    psi[:, i] /= np.sqrt(np.trapz(psi[:, i]**2, x))
+
+# Plot first three wavefunctions
+plt.figure(figsize=(10, 6))
+for i in range(3):
+    plt.plot(x, psi[:, i], label=f"n={i+1}, E={energies_eV[i]:.3f} eV")
+
+plt.title("Wavefunctions for Particle in a 1D Box (Finite Difference)")
+plt.xlabel("Position x (m)")
+plt.ylabel("Wavefunction ψ(x)")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# Print first few energy levels
+for i in range(3):
+    print(f"Energy Level {i+1}: {energies_eV[i]:.4f} eV")
+
+##############
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.optimize import bisect
+
+# Constants
+hbar = 1.054571817e-34  # J*s
+m_red = 8.37e-28  # Reduced mass for H2 in kg
+
+# Morse potential parameters for H2
+De = 4.744 * 1.60218e-19  # Joules
+a = 1.942e10  # 1/m (converted from Å^-1)
+xe = 0.741e-10  # meters
+
+# Spatial grid
+xmin, xmax = 0.2e-10, 3e-10
+N = 2000
+x = np.linspace(xmin, xmax, N)
+dx = x[1] - x[0]
+
+def morse_potential(x):
+    return De * (1 - np.exp(-a * (x - xe)))**2
+
+def schrodinger(E):
+    psi = np.zeros(N)
+    phi = np.zeros(N)
+    
+    # Initial boundary conditions
+    psi[0] = 0.0
+    phi[0] = 1e-5
+    
+    for i in range(1, N):
+        k1_psi = dx * phi[i-1]
+        k1_phi = dx * (2*m_red/hbar**2)*(morse_potential(x[i-1]) - E)*psi[i-1]
+
+        k2_psi = dx * (phi[i-1] + 0.5*k1_phi)
+        k2_phi = dx * (2*m_red/hbar**2)*(morse_potential(x[i-1] + dx/2) - E)*(psi[i-1] + 0.5*k1_psi)
+
+        k3_psi = dx * (phi[i-1] + 0.5*k2_phi)
+        k3_phi = dx * (2*m_red/hbar**2)*(morse_potential(x[i-1] + dx/2) - E)*(psi[i-1] + 0.5*k2_psi)
+
+        k4_psi = dx * (phi[i-1] + k3_phi)
+        k4_phi = dx * (2*m_red/hbar**2)*(morse_potential(x[i-1]) - E)*(psi[i-1] + k3_psi)
+
+        psi[i] = psi[i-1] + (k1_psi + 2*k2_psi + 2*k3_psi + k4_psi) / 6
+        phi[i] = phi[i-1] + (k1_phi + 2*k2_phi + 2*k3_phi + k4_phi) / 6
+
+    return psi[-1]
+
+# Root finding for ground state energy
+E_lower = 0.0
+E_upper = De
+
+E_ground = bisect(schrodinger, E_lower, E_upper)
+E_eV = E_ground / 1.60218e-19
+
+print("Ground State Vibrational Energy of H2:", round(E_eV, 4), "eV")
+
+# Solve again to get psi for plotting
+def solve_wavefunction(E):
+    psi = np.zeros(N)
+    phi = np.zeros(N)
+    psi[0] = 0.0
+    phi[0] = 1e-5
+    
+    for i in range(1, N):
+        k1_psi = dx * phi[i-1]
+        k1_phi = dx * (2*m_red/hbar**2)*(morse_potential(x[i-1]) - E)*psi[i-1]
+
+        k2_psi = dx * (phi[i-1] + 0.5*k1_phi)
+        k2_phi = dx * (2*m_red/hbar**2)*(morse_potential(x[i-1] + dx/2) - E)*(psi[i-1] + 0.5*k1_psi)
+
+        k3_psi = dx * (phi[i-1] + 0.5*k2_phi)
+        k3_phi = dx * (2*m_red/hbar**2)*(morse_potential(x[i-1] + dx/2) - E)*(psi[i-1] + 0.5*k2_psi)
+
+        k4_psi = dx * (phi[i-1] + k3_phi)
+        k4_phi = dx * (2*m_red/hbar**2)*(morse_potential(x[i-1]) - E)*(psi[i-1] + k3_psi)
+
+        psi[i] = psi[i-1] + (k1_psi + 2*k2_psi + 2*k3_psi + k4_psi) / 6
+        phi[i] = phi[i-1] + (k1_phi + 2*k2_phi + 2*k3_phi + k4_phi) / 6
+
+    # Normalize
+    psi /= np.sqrt(np.trapz(psi**2, x))
+    return psi
+
+psi_ground = solve_wavefunction(E_ground)
+
+# Plot ground state wavefunction
+plt.plot(x*1e10, psi_ground)
+plt.title("Ground State Wavefunction - Morse Potential (H2)")
+plt.xlabel("Bond Length x (Å)")
+plt.ylabel("ψ(x)")
+plt.grid()
+plt.show()
+
 
 
 

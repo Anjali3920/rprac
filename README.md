@@ -38,6 +38,7 @@ Trapezoidal=N[(b-a)/2*(f[a]+f[b])]
 Print["The value of trapezoidal",Trapezoidal]
 Print["the error is",N[Abs[Trapezoidal-c]]]
 
+
 f[x_]:=8/(4+x^2);
 a=0;
 b=2;
@@ -46,6 +47,14 @@ Print[c]
 Simpson=N[(b-a)/6*(f[a]+4*f[(a+b)/2]+f[b])];
 Print[Simpson]
 Print[N[Abs[Simpson-c]]]
+
+
+y={-7,-5,-4,-1};
+f={10,5,2,10};
+n=Length[y];
+L[j_,x_]:=Product[If[i==j,1,(x-y[[i]])/(y[[j]]-y[[i]])],{i,1,n}];
+F[x_]:=Simplify[Sum[L[i,x]*f[[i]],{i,1,n}]];
+Print["the required interpolating polynomial is",F[x]]
 
 
 

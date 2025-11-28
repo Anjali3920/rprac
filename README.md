@@ -48,13 +48,76 @@ Simpson=N[(b-a)/6*(f[a]+4*f[(a+b)/2]+f[b])];
 Print[Simpson]
 Print[N[Abs[Simpson-c]]]
 
-
+#interpolating polynomial
 y={-7,-5,-4,-1};
 f={10,5,2,10};
 n=Length[y];
 L[j_,x_]:=Product[If[i==j,1,(x-y[[i]])/(y[[j]]-y[[i]])],{i,1,n}];
 F[x_]:=Simplify[Sum[L[i,x]*f[[i]],{i,1,n}]];
 Print["the required interpolating polynomial is",F[x]]
+
+#gauss jacobi
+A=Table[{{5,1,2},{-3,9,4},{1,2,-7}}];
+rhs=Table[{10,-14,-33}];
+x=Table[{0,0,0}]
+maxit=10;
+n=3;
+earlierx=x;
+For[k=1,k<=maxit,k++,
+For[i=1,i<=n,i++,sum=0;
+For[j=1,j<=n,j++,
+If[i!=j,sum=sum+A[[i,j]]*earlierx[[j]]]];
+x[[i]]=N[(rhs[[i]]-sum)/(A[[i,i]])]];
+Print[x];earlierx=x]
+
+#gauss seidal
+A=Table[{{5,1,2},{-3,9,4},{1,2,-7}}];
+rhs=Table[{10,-14,-33}];
+x=Table[{0,0,0}]
+maxit=10;
+n=3;
+For[k=1,k<=maxit,k++,
+For[i=1,i<=n,i++,sum=0;
+For[j=1,j<=n,j++,
+If[i!=j,sum=sum+A[[i,j]]*x[[j]]]];
+x[[i]]=N[(rhs[[i]]-sum)/(A[[i,i]])]];
+Print[x]];
+
+#eulers
+x[0]=0;
+y[0]=1;
+a=0;b=4;h=1;
+f[x_,y_]=x+y;
+x[j_]:=x[j-1]+h;
+y[j_]:=y[j-1]+h*f[x[j-1],y[j-1]];
+Grid[Prepend[Table[{j,N[x[j],2],N[y[j],7]},{j,1,8}],{"j","x","y[j]"}],
+Dividers->{ALLTrue,ALLTrue}]
+
+#eulers
+x[0]=0;
+y[0]=1;
+a=0;
+b=4;
+h=1;
+f[x_y_]=x+y;
+x[j_]:=y[j-1]+h;
+y[j_]:=y[j-1]+h*f[x[j-1],y[j-1]];
+Grid[Prepend[Table[{j,N[x[j],2],N[y[j],7]},{j,1,4}],{"j","x[j]","y[j]"}],
+Dividers->{ALLTrue,ALLTrue}]
+2nd####
+f[x_, y_] := 2 x + y
+x0 = 0;
+y0 = 1;
+h = 0.1;
+xf = 1;
+n = (xf - x0)/(h)//N
+Do[xi = x0 + i h; yi+1 = yi + h(2xi + yi),{i, 0, n}]
+TableForm[Table[{xi, yi, - 2 - 2 xi + 3 * Exp[xi]}, {i,0,n}],
+ TableHeadings-> {None, {x, Approx y, Exact y}}]
+Plot1 = ListPlot[Table[{xi, yi}, {i, 0, n}], Joined->True]
+Plot2 = Plot[- 2 - 2 x + 3 * Exp[x],{x, 0, 1}, PlotStyle-> {Red}]
+a = Show[Plot1, Plot2]
+
 
 
 
@@ -63,6 +126,27 @@ Print["the required interpolating polynomial is",F[x]]
 
 
 #############
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -534,6 +618,43 @@ plt.xlabel("Bond Length x (Å)")
 plt.ylabel("ψ(x)")
 plt.grid()
 plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

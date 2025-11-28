@@ -28,6 +28,31 @@ n=6;
 f[x_]:=x^3+2*x^2-3*x-1;
 Plot[f[x],{x,1,2}]
 For[i=1,i<=n,i++,{p=p-f[p]/f'[p],Print[N[p]]}]
+f[x_]:=8/(4+x^2);
+#########
+a=0;
+b=2;
+c=N[Integrate[f[x],{x,0,2}]];
+Print["Exact value of integral is",c]
+Trapezoidal=N[(b-a)/2*(f[a]+f[b])]
+Print["The value of trapezoidal",Trapezoidal]
+Print["the error is",N[Abs[Trapezoidal-c]]]
+
+f[x_]:=8/(4+x^2);
+a=0;
+b=2;
+c=N[Integrate[f[x],{x,0,2}]];
+Print[c]
+Simpson=N[(b-a)/6*(f[a]+4*f[(a+b)/2]+f[b])];
+Print[Simpson]
+Print[N[Abs[Simpson-c]]]
+
+
+
+
+
+
+
 #############
 
 

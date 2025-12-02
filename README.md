@@ -295,6 +295,65 @@ print("Ground State (n=1):", physical_energies[0], "eV")
 print("1st Excited State (n=2):", physical_energies[1], "eV")
 
 6##########################################
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.integrate import solve_ivp
+
+# Schrödinger ODE for radial hydrogen (l=0):
+# u''(r) = -2*(E + 1/r)*u(r)
+def sch_eq(r, y, E):
+    u, uprime = y
+    dup = uprime
+    duprime = -2 * (E + 1/r) * u
+    return [dup, duprime]
+
+# Solve for a given energy
+def solve_u(E, rmax=20):
+    r = np.linspace(1e-6, rmax, 2000)  # avoid r=0
+    y0 = [0.0, 1.0]  # boundary: u(0)=0, u'(0)=1
+    sol = solve_ivp(lambda r, y: sch_eq(r, y, E),
+                    [r[0], r[-1]], y0, t_eval=r)
+    return sol.t, sol.y[0]
+
+# Shooting method: find energies where u(r_max) changes sign
+def find_eigenvalues(E_list):
+    vals = []
+    for E in E_list:
+        r, u = solve_u(E)
+        vals.append((E, u[-1]))
+    return vals
+
+# Energy search range (Hydrogen energies are negative)
+E_test = np.linspace(-1.2, -0.05, 400)
+
+results = find_eigenvalues(E_test)
+
+# Detect sign changes → eigenvalues
+eigen_E = []
+for i in range(len(results)-1):
+    E1, u1 = results[i]
+    E2, u2 = results[i+1]
+    if u1 * u2 < 0:
+        eigen_E.append((E1 + E2)/2)
+
+print("Found Hydrogen-like Eigenvalues (S-wave):")
+for E in eigen_E:
+    print("E =", E)
+
+# Plot ground-state wavefunction for first eigenvalue
+E0 = eigen_E[0]
+r, u = solve_u(E0)
+
+plt.plot(r, u, label=f"Ground state E ≈ {E0:.4f}")
+plt.title("Coulomb Potential (Hydrogen) – Shooting Method")
+plt.xlabel("r")
+plt.ylabel("u(r)")
+plt.grid(True)
+plt.legend()
+plt.show()
+
+7#########################################################
+
 
 
 

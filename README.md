@@ -141,6 +141,161 @@ plt.grid(True)
 plt.legend()
 plt.show()
 
+4#####################################
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.integrate import solve_ivp
+
+# Range and resolution
+x_min, x_max = -6, 6
+N = 2000
+x_vals = np.linspace(x_min, x_max, N)
+
+# Schrodinger Equation (1st order format)
+def schrodinger(x, y, E):
+    psi, phi = y
+    dpsi_dx = phi
+    dphi_dx = (x**2 - 2*E) * psi
+    return [dpsi_dx, dphi_dx]
+
+# Shooting method (even states -> psi(0)=1, phi(0)=0)
+def shoot(E, parity="even"):
+    if parity == "even":
+        init = [1.0, 0.0]  # ψ(0)=1, ψ'(0)=0
+    else:
+        init = [0.0, 1.0]  # ψ(0)=0, ψ'(0)=1 (odd states)
+    
+    sol = solve_ivp(schrodinger, [0, x_max], init,
+                    t_eval=np.linspace(0, x_max, N),
+                    args=(E,))
+    
+    psi = sol.y[0]
+    return psi[-1], psi, sol.t
+
+# Scan energies to find eigenvalues
+energies = np.linspace(0, 10, 500)
+psi_end_even, psi_end_odd = [], []
+
+for E in energies:
+    pe,_,_ = shoot(E, "even")
+    po,_,_ = shoot(E, "odd")
+    psi_end_even.append(pe)
+    psi_end_odd.append(po)
+
+# find sign changes → eigenvalues
+even_idx = np.where(np.diff(np.sign(psi_end_even)))[0]
+odd_idx = np.where(np.diff(np.sign(psi_end_odd)))[0]
+
+EVEN_E = energies[even_idx]
+ODD_E = energies[odd_idx]
+
+print("Even State Energies:", EVEN_E)
+print("Odd State Energies:", ODD_E)
+
+# Plot first 3 states
+plt.figure(figsize=(10,7))
+
+for i, E in enumerate(sorted(np.concatenate((EVEN_E, ODD_E)))[:3]):
+    last_val, psi_half, t_half = shoot(E, "even" if i%2==0 else "odd")
+    
+    # Mirror wavefunction for negative x
+    psi = np.concatenate(((-1)**i * psi_half[::-1], psi_half))
+    x_full = np.concatenate((-t_half[::-1], t_half))
+    
+    psi /= np.max(np.abs(psi))  # normalize for plot
+    
+    plt.plot(x_full, psi, label=f"n={i}, E={E:.2f}")
+
+plt.title("Quantum Harmonic Oscillator - Shooting Method")
+plt.xlabel("x")
+plt.ylabel("ψ(x)")
+plt.grid(True)
+plt.legend()
+plt.show()
+
+5######    #############################################
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Define x range
+x = np.linspace(-10, 10, 500)
+
+# Define the function
+y = x**2
+
+# Plot
+plt.plot(x, y)
+
+# Labels and title
+plt.xlabel("x")
+plt.ylabel("y")
+
+# Grid for better visibility
+plt.grid(True)
+
+# Display plot
+plt.show()
+
+5############################
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.integrate import solve_ivp
+
+# Dimensionless Hydrogen radial Schrödinger equation
+def schrodinger(rho, y, l, epsilon):
+    u, uprime = y
+    V = (l*(l+1)/rho**2) - (2/rho)  # effective potential
+    return [uprime, (V + 2*epsilon) * u]
+
+# Shooting method for a given energy
+def shoot(epsilon, l):
+    rho = np.linspace(1e-6, 20, 2000)
+    sol = solve_ivp(schrodinger, [rho[0], rho[-1]],
+                    [0, 1e-4], args=(l, epsilon),
+                    t_eval=rho, method="RK45")
+    return sol.t, sol.y[0], sol.y[0][-1]
+
+# Find eigenvalues by scanning energy range
+def find_energy(l):
+    eps_range = np.linspace(-1.5, -0.1, 500)
+    boundary_vals = []
+
+    for eps in eps_range:
+        _, _, val = shoot(eps, l)
+        boundary_vals.append(val)
+
+    idx = np.where(np.diff(np.sign(boundary_vals)))[0]
+    return eps_range[idx]
+
+# Find l=0 eigen-energies (1s, 2s)
+energies = find_energy(l=0)
+print("Dimensionless Eigen Energies Found:", energies[:2])
+
+# Plot wavefunctions
+plt.figure(figsize=(10, 7))
+
+for i, eps in enumerate(energies[:2]):
+    rho, u, _ = shoot(eps, 0)
+    u_norm = u / np.max(np.abs(u))
+    plt.plot(rho, u_norm, label=f"State n={i+1}, ε={eps:.3f}")
+
+plt.xlabel("ρ = r/a₀")
+plt.ylabel("Radial Wavefunction u(ρ) (normalized)")
+plt.title("Hydrogen Atom Wavefunctions (Shooting Method)")
+plt.grid(True)
+plt.legend()
+plt.show()
+
+# Convert to physical energy (eV)
+E0 = -13.6  # Hydrogen ground state energy
+physical_energies = energies[:2] * E0
+
+print("\nPhysical Energy Eigenvalues (approx):")
+print("Ground State (n=1):", physical_energies[0], "eV")
+print("1st Excited State (n=2):", physical_energies[1], "eV")
+
+6##########################################
+
 
 
 

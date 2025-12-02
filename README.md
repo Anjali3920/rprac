@@ -6,6 +6,181 @@ n=10;
 f[x_]:=x^2-2;
 Plot[f[x],{x,1,2}]
 For[i=1,i<=n,i++,{c=(a+b)/2,If [f[a]*f[c]<0,b=c,a=c],Print[N[c]]}]
+m1####################################
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Morse potential function
+def morse_potential(r, De, a, re):
+    return De * (1 - np.exp(-a * (r - re)))**2
+
+# Parameters (You can modify these)
+De = 5.0      # Well depth
+a = 1.0       # Width parameter
+re = 1.0      # Equilibrium bond length
+
+# Range of r values
+r = np.linspace(0, 3, 500)
+
+# Calculate Morse potential
+V = morse_potential(r, De, a, re)
+
+# Plotting
+plt.plot(r, V)
+plt.title("Morse Potential")
+plt.xlabel("r (distance)")
+plt.ylabel("V(r) (potential energy)")
+plt.grid(True)
+plt.show()
+
+2 #########################################################################
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.integrate import solve_ivp
+
+# Constants (set hbar^2/2m = 1 for simplicity)
+L = 1.0  # length of the box
+x_vals = np.linspace(0, L, 500)
+
+def schrodinger(x, y, E):
+    psi, phi = y
+    dpsi_dx = phi
+    dphi_dx = -E * psi   # since hbar^2/2m = 1
+    return [dpsi_dx, dphi_dx]
+
+def shoot(E):
+    # y = [psi, dpsi/dx]
+    sol = solve_ivp(schrodinger, [0, L], [0, 1], t_eval=x_vals, args=(E,))
+    psi_L = sol.y[0, -1]
+    return psi_L, sol
+
+
+# Find energy eigenvalues by scanning
+energies = np.linspace(0, 200, 2000)
+psi_L_vals = []
+
+for E in energies:
+    psi_L, _ = shoot(E)
+    psi_L_vals.append(psi_L)
+
+# Find approximate zeros → eigenvalues
+sign_change_indices = np.where(np.diff(np.sign(psi_L_vals)))[0]
+eigen_values = energies[sign_change_indices]
+print("Estimated Eigenvalues:", eigen_values)
+
+# Plot first 3 wavefunctions
+plt.figure(figsize=(10, 7))
+for i, E in enumerate(eigen_values[:3]):
+    psi_L, sol = shoot(E)
+    psi = sol.y[0]
+    psi /= np.max(np.abs(psi))  # Normalize for plotting
+    plt.plot(x_vals, psi, label=f"Eigenstate {i+1}, E ≈ {E:.2f}")
+
+plt.title("Particle in a Box - Wavefunctions via Shooting Method")
+plt.xlabel("Position x")
+plt.ylabel("Wavefunction ψ(x)")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+3##########################################################################
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.integrate import solve_ivp
+
+# Well parameters
+a = 1.0        # half width
+V0 = 50.0      # well depth
+x_min, x_max = -2, 2   # boundaries
+N = 1000
+x_vals = np.linspace(x_min, x_max, N)
+
+# Finite Potential Well Function
+def V(x):
+    return 0 if abs(x) <= a else V0
+
+# Schrödinger Equation (converted to 1st order form)
+def schrodinger(x, y, E):
+    psi, phi = y
+    return [phi, - (E - V(x)) * psi]
+
+# Shooting Method: returns psi at boundary for given E
+def shooting(E):
+    y0 = [0, 1]  # psi(x_min)=0, psi'(x_min)=1
+    sol = solve_ivp(schrodinger, [x_min, x_max], y0, t_eval=x_vals, args=(E,))
+    psi = sol.y[0]
+    return psi[-1], psi
+
+# Scan energies to detect sign change which indicates eigenvalues
+energies = np.linspace(0.1, V0 - 0.1, 500)
+psi_boundary = []
+
+for E in energies:
+    psi_L, _ = shooting(E)
+    psi_boundary.append(psi_L)
+
+# Find eigen energy where sign flips → ψ(x_max)=0
+indexes = np.where(np.diff(np.sign(psi_boundary)))[0]
+eigenE = energies[indexes]
+print("Eigen Energies Found:", eigenE)
+
+# Plot wavefunctions of first 3 bound states
+plt.figure(figsize=(10,7))
+for i, E in enumerate(eigenE[:3]):
+    psi_L, psi = shooting(E)
+    psi /= np.max(np.abs(psi))  # normalize
+    plt.plot(x_vals, psi, label=f"n={i+1}, E={E:.2f}")
+
+plt.axvline(-a, color='k', linestyle='--')
+plt.axvline(a, color='k', linestyle='--')
+plt.title("Finite Potential Well — Shooting Method")
+plt.xlabel("x")
+plt.ylabel("ψ(x)")
+plt.grid(True)
+plt.legend()
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 a=1;
 b=2;

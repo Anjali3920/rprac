@@ -353,6 +353,42 @@ plt.legend()
 plt.show()
 
 7#########################################################
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.special import sph_harm
+
+# Choose quantum numbers
+l = 3   # orbital number
+m = 2   # magnetic number
+
+# Create theta and phi grid
+theta = np.linspace(0, np.pi, 200)    # polar angle
+phi = np.linspace(0, 2*np.pi, 200)    # azimuthal angle
+theta, phi = np.meshgrid(theta, phi)
+
+# Compute spherical harmonic
+Y = sph_harm(m, l, phi, theta)
+
+# Radius = magnitude of harmonic
+R = np.abs(Y)
+
+# Convert spherical -> Cartesian for plotting
+x = R * np.sin(theta) * np.cos(phi)
+y = R * np.sin(theta) * np.sin(phi)
+z = R * np.cos(theta)
+
+# Plot
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+# Surface plot
+ax.plot_surface(x, y, z, facecolors=plt.cm.jet(R / R.max()),
+                rstride=3, cstride=3)
+
+ax.set_title(f"Spherical Harmonic Y({l},{m})")
+ax.set_axis_off()
+
+plt.show()
 
 
 

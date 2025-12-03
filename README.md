@@ -389,6 +389,64 @@ ax.set_title(f"Spherical Harmonic Y({l},{m})")
 ax.set_axis_off()
 
 plt.show()
+8#############
+import numpy as np
+from scipy.integrate import solve_ivp
+import matplotlib.pyplot as plt
+
+# Anharmonic oscillator potential: V = x^2 + λx^4
+lam = 0.1          # anharmonic strength
+x_max = 5          # domain limit
+N = 2000           # grid points
+x = np.linspace(-x_max, x_max, N)
+
+def potential(x):
+    return x**2 + lam * x**4
+
+# Schrödinger ODE → y = [psi, dpsi/dx]
+def schrodinger(x, y, E):
+    psi, dpsi = y
+    d2psi = (potential(x) - E) * psi
+    return [dpsi, d2psi]
+
+# Shooting function: returns psi at boundary
+def shoot(E):
+    y0 = [0.0, 1e-6]  # psi(0)=0, psi'(0)=tiny
+    sol = solve_ivp(schrodinger, [0, x_max], y0, t_eval=x[x>=0], args=(E,))
+    psi = sol.y[0]
+    return psi[-1]
+
+# Scan energies
+E_values = np.linspace(0.5, 10, 300)
+psi_boundary = [shoot(E) for E in E_values]
+
+# Find sign changes = eigenvalues
+eigenE = []
+for i in range(len(E_values)-1):
+    if psi_boundary[i] == 0:
+        eigenE.append(E_values[i])
+    if psi_boundary[i]*psi_boundary[i+1] < 0:
+        eigenE.append(0.5*(E_values[i] + E_values[i+1]))
+
+print("Eigen Energies:", eigenE)
+
+# Solve for first eigenstate
+E = eigenE[0]
+
+sol = solve_ivp(schrodinger, [-x_max, x_max], [0, 1e-6], t_eval=x, args=(E,))
+psi = sol.y[0]
+
+# Normalize ψ
+psi /= np.trapz(psi**2, x)**0.5
+
+# Plot
+plt.plot(x, psi)
+plt.title(f"Anharmonic Oscillator Wavefunction (E = {E:.3f})")
+plt.xlabel("x")
+plt.ylabel("ψ(x)")
+plt.grid()
+plt.show()
+
 
 
 

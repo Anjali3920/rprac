@@ -6,6 +6,78 @@ n=10;
 f[x_]:=x^2-2;
 Plot[f[x],{x,1,2}]
 For[i=1,i<=n,i++,{c=(a+b)/2,If [f[a]*f[c]<0,b=c,a=c],Print[N[c]]}]
+
+
+
+
+a=1;
+b=2;
+n=6;
+f[x_]:=x^3+2*x^2-3*x-1;
+Plot[f[x],{x,1,2}]
+For[i=1,i<=n,i++,{p=(a*f[b]-b*f[a])/(f[b]-f[a]),If[f[a]*f[p]>0,a=p,b=p],Print[N[p]]}]
+
+
+p0=0;
+p1=1;
+n=6;
+f[x_]:=x^3-5*x+1;
+Plot[f[x],{x,0,1}]
+For[i=1,i<=n,i++,{p=p1-(p1-p0)/(f[p1]-f[p0])*f[p1],p0=p1,p1=p ,Print[N[p]]}]
+
+p0=1;
+p=p0;
+n=6;
+f[x_]:=x^3+2*x^2-3*x-1;
+Plot[f[x],{x,1,2}]
+For[i=1,i<=n,i++,{p=p-f[p]/f'[p],Print[N[p]]}]
+f[x_]:=8/(4+x^2);
+#########
+a=0;
+b=2;
+c=N[Integrate[f[x],{x,0,2}]];
+Print["Exact value of integral is",c]
+Trapezoidal=N[(b-a)/2*(f[a]+f[b])]
+Print["The value of trapezoidal",Trapezoidal]
+Print["the error is",N[Abs[Trapezoidal-c]]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 m1####################################
 
 import numpy as np
@@ -389,7 +461,7 @@ ax.set_title(f"Spherical Harmonic Y({l},{m})")
 ax.set_axis_off()
 
 plt.show()
-8#############
+8############# anharmonic
 import numpy as np
 from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt

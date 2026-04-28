@@ -148,6 +148,96 @@ AspectRatio->1,PlotRange->{{-1,1},{-1,1}},
 PlotLabel->"Monte Carlo Simulation of unit circle"]
 
 
+13. area x^2 +y^2<=1
+n = 500;
+pts = RandomReal[{-1, 1}, {n, 2}];
+inside = Select[pts, #[[1]]^2 + #[[2]]^2 <= 1 &];
+outside = Select[pts, #[[1]]^2 + #[[2]]^2 > 1 &];
+counter = Length[inside];
+area = 4*counter/n;
+Print["Estimated Area of Unit Circle = ", N[area]];
+Show[ ListPlot[inside, PlotStyle -> Green],
+ ListPlot[outside, PlotStyle -> Red],
+ Graphics[{Thick, Circle[{0, 0}, 1]}],
+ AspectRatio -> 1,
+ PlotRange -> {{-1, 1}, {-1, 1}},
+ PlotLabel -> "Monte Carlo Simulation of Unit Circle"]
+
+14. volume under a surface z=x^2+y^2
+n = 20000;
+pts3D = RandomReal[{0, 1}, {n, 3}];
+below = Select[pts3D, #[[3]] <= #[[1]]^2 + #[[2]]^2 &];
+above = Select[pts3D, #[[3]] > #[[1]]^2 + #[[2]]^2 &];
+volumeEstimate = 2*Length[below]/n;
+Print["Estimated Volume = ", N[volumeEstimate]];
+Show[ ListPointPlot3D[below, PlotStyle -> Blue],
+ ListPointPlot3D[above, PlotStyle -> Red],
+ Plot3D[x^2 + y^2, {x, 0, 1}, {y, 0, 1},
+   Mesh -> None,
+   PlotStyle -> Directive[Opacity[0.5], Yellow] ],
+ PlotRange -> {{0, 1}, {0, 1}, {0, 2}},
+ BoxRatios -> {1, 1, 1},
+ PlotLabel -> "Monte Carlo Simulation of Volume under z = x^2 + y^2"]
+
+15.pi/4 =area(q)/area(s)
+n = 100000;
+pts = RandomReal[{0, 1}, {n, 2}];
+inside = Select[pts, #[[1]]^2 + #[[2]]^2 <= 1 &];
+outside = Select[pts, #[[1]]^2 + #[[2]]^2 > 1 &];
+counter = Length[inside];
+area = 4*counter/n;
+Print["Area of Q inside S = ", N[area]];
+Show[ ListPlot[inside, PlotStyle -> Green],
+ ListPlot[outside, PlotStyle -> Red],
+ Graphics[{Thick, Circle[{0, 0}, 1, {0, Pi/2}]}],
+ AspectRatio -> 1,
+ PlotRange -> {{0, 1}, {0, 1}},
+ PlotLabel -> "Monte Carlo Simulation for Area of Q inside S"]
+
+
+16. x^2/2+y^2/4+z^2/8<=16
+n = 20000;
+pts3D = RandomReal[{0, 6}, {n, 3}];
+inside = Select[
+   pts3D,
+   #[[1]]^2/2 + #[[2]]^2/4 + #[[3]]^2/8 <= 16 &];
+outside = Select[
+   pts3D,
+   #[[1]]^2/2 + #[[2]]^2/4 + #[[3]]^2/8 > 16 &];
+counter = Length[inside];
+volumeEstimate = 6^3*counter/n
+Print["Estimated Volume = ", N[volumeEstimate]];
+Show[ ListPointPlot3D[inside, PlotStyle -> Blue],
+ ListPointPlot3D[outside, PlotStyle -> Red],
+ ContourPlot3D[
+   x^2/2 + y^2/4 + z^2/8 == 16,
+   {x, 0, 6}, {y, 0, 6}, {z, 0, 6},
+   Mesh -> None,
+   ContourStyle -> Directive[Opacity[0.4], Yellow] ],
+ BoxRatios -> {1, 1, 1},
+ PlotLabel -> "Monte Carlo Simulation of Ellipsoid Volume in First Octant"]
+
+17. area under a curve y=x^2
+n = 100000;
+pts = RandomReal[{0, 1}, {n, 2}];
+below = Select[pts, #[[2]] <= #[[1]]^2 &];
+above = Select[pts, #[[2]] > #[[1]]^2 &];
+counter = Length[below];
+area = counter/n;
+Print["Estimated Area under y = x^2 = ", N[area]];
+Show[ ListPlot[below, PlotStyle -> Blue],
+ ListPlot[above, PlotStyle -> Red],
+ Plot[x^2, {x, 0, 1}, PlotStyle -> {Black, Thick}],
+ PlotRange -> {{0, 1}, {0, 1}},
+ AspectRatio -> 1,
+ PlotLabel -> "Monte Carlo Simulation of Area under y = x^2"]
+
+'''
+
+
+
+
+
 
 
 

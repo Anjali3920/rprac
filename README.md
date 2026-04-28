@@ -78,6 +78,7 @@ c2=0.005
 c=NDSolve[{x'[t]==\[Beta]*x[t]-c1*x[t]*y[t],y'[t]==c2*x[t]*y[t]-\[Alpha]*y[t],x[0]==200,y[0]==80},{x[t],y[t]},{t,0,20}]
 Plot[Evaluate[{x[t],y[t]}/.c],{t,0,20},PlotRange->Full,
 PlotLegends->{"x[t]-Prey","y[t]-Preedator"},PlotStyle->Thick]
+
 7.epidemic model
 "s[t]=[" enter the susceptible population "]
 i[t]=["enter the infective population"]
@@ -87,7 +88,9 @@ r[t]=["enter the recovered population"]"
 sol=NDSolve[{s'[t]==-\[Beta]*s[t]*i[t],i'[t]==\[Beta]*s[t]*i[t]-\[Gamma]*i[t],r'[t]==\[Gamma]*i[t],s[0]==762,i[0]==1,r[0]==0,{s[t],i[t],r[t]},{t,0,20}]
 Plot[Evaluate[{s[t],i[t],r[t]}/.sol],{t,0,30},
 PlotRange->Full,PlotLegends->Automatic]
+
 8. logistic growth
+
 r=Input["enter the growth constant"]
 k=Input["enter the capacity constant"]
 s1=DSolve[{x'[t]==r*x[t]*(1-x[t]/k),x[0]==200},x[t],t]
@@ -97,6 +100,54 @@ s4=DSolve[{x'[t]==r*x[t]*(1-x[t]/k),x[0]==800},x[t],t]
 s5=DSolve[{x'[t]==r*x[t]*(1-x[t]/k),x[0]==1000},x[t],t]
 Plot[Evaluate[x[t]/.{s1,s2,s3,s4,s5}],
 {t,0,1},PlotRange->Full,PlotLegends->Automatic]
+
+9.least square fit linear
+data={{1,1},{2,1},{3,2},{4,2},{5,4}};
+fit=Fit[data,{1,x},x];
+a=Coefficient[fit,x,1];
+b=Coefficient[fit,x,0];
+Print["a",a,"\n","b=",b]
+Print["Least Square Line:y=",fit]
+Show[ListPlot[data,PlotStyle->Red,PlotMarkers->Automatic],
+Plot[fit,{x,1,5},PlotStyle->Blue],
+AxesLabel->{"x","y"},PlotLabel->"Least square fit for y=ax+b"]
+
+10.y=ax^2
+data={{0.5,0.7},{1.0,3.4},{1.5,7.2},{2,12.4},{2.5,20.1}};
+fit=Fit[data,{x^2},x];
+A=Coefficient[fit,x,2];
+Print["A=",A];
+Print["fitted curve:y=",fit]
+Print["\n"]
+Show[ListPlot[data,PlotStyle->Red,PlotMarkers->Automatic],
+Plot[fit,{x,0,2.6},PlotStyle->Blue],
+AxesLabel->{"x","y"},PlotLabel->" LEAST SQUARE fit for y=ax^2"]
+
+11.battle /ecosystem competing speccie
+a1=0.0544;
+a2=0.0106;
+tend=30;
+u0={R[0]==66,B[0]==18};
+eqns={R'[t]==-a1*R[t]*B[t],B'[t]==-a2*R[t]*B[t]};
+sol=NDSolve[Join[eqns,u0],{R,B},{t,0,tend}];
+Rsol[t_]:=Evaluate[R[t]/.sol[[1]]];
+Bsol[t_]:=Evaluate[B[t]/.sol[[1]]];
+Plot[{Rsol[t],Bsol[t]},{t,0,tend},PlotStyle->{Red,Blue},
+PlotLegends->{"R(t)","B(t)"},AxesLabel->{"t","Population"},PlotRange->All]
+
+12.monte carlo area
+pts=RandomReal[{-1,1},{n ,2}];
+inside=Select[pts,#[[1]]^2+#[[2]]^2<=1&];
+outside=Select[pts,#[[1]]^2+#[[2]]^2>1&];
+counter=Length[inside];
+area=4*counter/n;
+Print["Estimated Area of unit circle=",N[area]];
+Show[ListPlot[inside,PlotStyle->Green],
+ListPlot[outside,PlotStyle->Red],Graphics[{Thick,Circle[{0,0},1]}],
+AspectRatio->1,PlotRange->{{-1,1},{-1,1}},
+PlotLabel->"Monte Carlo Simulation of unit circle"]
+
+
 
 
 

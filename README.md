@@ -18,12 +18,6 @@ Plot[f[x],{x,1,2}]
 For[i=1,i<=n,i++,{p=(a*f[b]-b*f[a])/(f[b]-f[a]),If[f[a]*f[p]>0,a=p,b=p],Print[N[p]]}]
 
 
-p0=0;
-p1=1;
-n=6;
-f[x_]:=x^3-5*x+1;
-Plot[f[x],{x,0,1}]
-For[i=1,i<=n,i++,{p=p1-(p1-p0)/(f[p1]-f[p0])*f[p1],p0=p1,p1=p ,Print[N[p]]}]
 '''
 
 
@@ -38,44 +32,6 @@ For[i=1,i<=n,i++,{p=p1-(p1-p0)/(f[p1]-f[p0])*f[p1],p0=p1,p1=p ,Print[N[p]]}]
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-m1####################################
-
-import numpy as np
-import matplotlib.pyplot as plt
-
-# Morse potential function
-def morse_potential(r, De, a, re):
-    return De * (1 - np.exp(-a * (r - re)))**2
-
-# Parameters (You can modify these)
-De = 5.0      # Well depth
-a = 1.0       # Width parameter
-re = 1.0      # Equilibrium bond length
 
 
 

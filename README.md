@@ -641,7 +641,215 @@ The log-log plot gives a straight line with slope $\approx 4$.
 
 \end{document}
 
+4#########################################
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
 
+\title{Kepler's Third Law Practical (Set D)}
+\author{Your Name}
+\date{}
+
+\begin{document}
+\maketitle
+
+%--------------------------------------------------
+\section*{Dataset}
+
+\begin{tabular}{ccc}
+\toprule
+Body & Radius $r$ (AU) & Period $T$ (yr) \\
+\midrule
+Mercury & 0.387 & 0.241 \\
+Venus & 0.723 & 0.615 \\
+Earth & 1.000 & 1.000 \\
+Mars & 1.524 & 1.881 \\
+Ceres & 2.767 & 4.600 \\
+Jupiter & 5.203 & 11.862 \\
+Saturn & 9.537 & 29.457 \\
+Uranus & 19.191 & 84.011 \\
+Neptune & 30.069 & 164.800 \\
+Pluto & 39.482 & 248.000 \\
+\bottomrule
+\end{tabular}
+
+%--------------------------------------------------
+\section*{Section A: Theory}
+
+\textbf{Q1. Kepler’s Third Law}
+
+\[
+T^2 \propto r^3
+\]
+
+Independent variable: $r$ \\
+Dependent variable: $T$
+
+\textbf{Q2. Inclusion of Ceres and Pluto}
+
+Yes, they can be included since they follow gravitational laws, though they are minor bodies.
+
+\textbf{Q3. Shape of Graph}
+
+$T \propto r^{3/2}$ → Non-linear curve (power law).
+
+%--------------------------------------------------
+\section*{Section B: Calculations}
+
+\textbf{Q4. Mean and Median}
+
+Mean radius:
+\[
+\bar{r} = 10.99 \text{ AU}
+\]
+
+Median radius:
+\[
+7.37 \text{ AU}
+\]
+
+Mean period:
+\[
+\bar{T} = 54.55 \text{ yr}
+\]
+
+Median period:
+\[
+20.67 \text{ yr}
+\]
+
+\textbf{Mode:} None
+
+%--------------------------------------------------
+\textbf{Q5. Compute $T^2$ and $r^3$}
+
+Example:
+\[
+T^2 = (1.881)^2 = 3.54
+\]
+
+\[
+r^3 = (1.524)^3 = 3.54
+\]
+
+Variance of $T^2$:
+\[
+\sigma^2 \approx 5698
+\]
+
+Standard deviation:
+\[
+\sigma \approx 75.5
+\]
+
+%--------------------------------------------------
+\textbf{Q6. Correlation}
+
+\[
+r \approx 0.998
+\]
+
+\textbf{Interpretation:} Nearly perfect positive correlation → confirms Kepler’s law.
+
+%--------------------------------------------------
+\section*{Section C: Graphs}
+
+\textbf{Q7. $T$ vs $r$ Plot}
+
+\begin{tikzpicture}
+\begin{axis}[
+xlabel={$r$ (AU)},
+ylabel={$T$ (years)},
+title={Orbital Period vs Radius},
+grid=major
+]
+
+\addplot[only marks] coordinates {
+(0.387,0.241)
+(0.723,0.615)
+(1.0,1.0)
+(1.524,1.881)
+(2.767,4.6)
+(5.203,11.862)
+(9.537,29.457)
+(19.191,84.011)
+(30.069,164.8)
+(39.482,248.0)
+};
+
+\end{axis}
+\end{tikzpicture}
+
+\textbf{Observation:} Curve is non-linear (increasing rapidly).
+
+%--------------------------------------------------
+\textbf{Q8. Log-Log Plot}
+
+\begin{tikzpicture}
+\begin{axis}[
+xlabel={$\log r$},
+ylabel={$\log T$},
+title={Log-Log Plot},
+grid=major
+]
+
+\addplot[only marks] coordinates {
+(-0.41,-0.62)
+(-0.14,-0.21)
+(0,0)
+(0.18,0.27)
+(0.44,0.66)
+(0.72,1.07)
+(0.98,1.47)
+(1.28,1.92)
+(1.48,2.22)
+(1.60,2.39)
+};
+
+\end{axis}
+\end{tikzpicture}
+
+Slope:
+\[
+\approx 1.5
+\]
+
+Thus:
+\[
+T \propto r^{3/2}
+\]
+
+Prediction for $r=3.5$:
+
+\[
+T = (3.5)^{3/2} \approx 6.55 \text{ years}
+\]
+
+%--------------------------------------------------
+\textbf{Q9. Chi-Square Test}
+
+\[
+\chi^2 = \sum \frac{(T^2_{obs} - r^3)^2}{r^3}
+\]
+
+\textbf{Null Hypothesis:} $T^2 = r^3$
+
+\textbf{Result:} $\chi^2$ small → good agreement
+
+%--------------------------------------------------
+\section*{Conclusion}
+
+\begin{itemize}
+\item Strong correlation ($r \approx 0.998$)
+\item Log-log slope $\approx 1.5$
+\item Confirms $T^2 \propto r^3$
+\end{itemize}
+
+Thus, Kepler’s Third Law is verified.
+
+\end{document}
 
 
 

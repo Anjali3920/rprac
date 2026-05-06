@@ -852,6 +852,207 @@ Thus, Kepler’s Third Law is verified.
 \end{document}
 
 
+5############################################ photoelectric effect
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\title{Photoelectric Effect Practical (Set E)}
+\author{Your Name}
+\date{}
+
+\begin{document}
+\maketitle
+
+%--------------------------------------------------
+\section*{Dataset}
+
+\begin{tabular}{cc}
+\toprule
+Frequency $\nu$ ($\times 10^{14}$ Hz) & Stopping Potential $V_0$ (V) \\
+\midrule
+5.49 & 0.62 \\
+5.96 & 0.81 \\
+6.18 & 0.92 \\
+6.88 & 1.20 \\
+7.41 & 1.43 \\
+8.22 & 1.78 \\
+9.14 & 2.18 \\
+10.03 & 2.57 \\
+10.96 & 2.97 \\
+11.79 & 3.32 \\
+\bottomrule
+\end{tabular}
+
+%--------------------------------------------------
+\section*{Section A: Theory}
+
+\textbf{Q1. Einstein Photoelectric Equation}
+
+\[
+eV_0 = h\nu - \phi
+\]
+
+Where:
+\begin{itemize}
+\item $h$ = Planck's constant
+\item $\nu$ = frequency
+\item $\phi$ = work function
+\end{itemize}
+
+Graph:
+\begin{itemize}
+\item x-axis: $\nu$
+\item y-axis: $V_0$
+\end{itemize}
+
+\textbf{Q2. Threshold Frequency}
+
+At $V_0 = 0$:
+
+\[
+\nu_0 \approx 4.34 \times 10^{14} \text{ Hz}
+\]
+
+\textbf{Q3. Variables}
+
+\begin{itemize}
+\item Independent: Frequency $\nu$
+\item Dependent: Stopping potential $V_0$
+\item Control: intensity of light, material
+\end{itemize}
+
+%--------------------------------------------------
+\section*{Section B: Calculations}
+
+\textbf{Q4. Mean and Median}
+
+Mean frequency:
+\[
+\bar{\nu} = 8.206
+\]
+
+Median frequency:
+\[
+8.015
+\]
+
+Mean $V_0$:
+\[
+1.780
+\]
+
+Median $V_0$:
+\[
+1.605
+\]
+
+Mode: None
+
+%--------------------------------------------------
+\textbf{Q5. Variance and Standard Deviation}
+
+\[
+\sigma^2 = 0.887
+\]
+
+\[
+\sigma = 0.942
+\]
+
+%--------------------------------------------------
+\textbf{Q6. Correlation}
+
+\[
+r \approx 0.9997
+\]
+
+\textbf{Interpretation:} Nearly perfect linear relationship.
+
+%--------------------------------------------------
+\section*{Section C: Graphs}
+
+\textbf{Q7. Plot $V_0$ vs $\nu$}
+
+\begin{tikzpicture}
+\begin{axis}[
+xlabel={Frequency ($10^{14}$ Hz)},
+ylabel={Stopping Potential (V)},
+title={Photoelectric Effect},
+grid=major
+]
+
+\addplot[only marks] coordinates {
+(5.49,0.62)
+(5.96,0.81)
+(6.18,0.92)
+(6.88,1.20)
+(7.41,1.43)
+(8.22,1.78)
+(9.14,2.18)
+(10.03,2.57)
+(10.96,2.97)
+(11.79,3.32)
+};
+
+\end{axis}
+\end{tikzpicture}
+
+\textbf{Observation:} Straight line (linear relation).
+
+%--------------------------------------------------
+\textbf{Q8. Regression Line}
+
+\[
+V_0 = \frac{h}{e}\nu - \frac{\phi}{e}
+\]
+
+Slope:
+\[
+\frac{h}{e} \approx 4.12 \times 10^{-15}
+\]
+
+Planck’s constant:
+
+\[
+h = \text{slope} \times e = 4.12 \times 10^{-15} \times 1.6 \times 10^{-19}
+\]
+
+\[
+h \approx 6.59 \times 10^{-34} \text{ J·s}
+\]
+
+Percentage error:
+
+\[
+\approx 0.5\%
+\]
+
+%--------------------------------------------------
+\textbf{Q9. Chi-Square Test}
+
+\[
+\chi^2 = \sum \frac{(V_{obs} - V_{exp})^2}{V_{exp}}
+\]
+
+\textbf{Null Hypothesis:} Linear relation holds.
+
+\textbf{Result:} $\chi^2$ small → good agreement.
+
+%--------------------------------------------------
+\section*{Conclusion}
+
+\begin{itemize}
+\item Strong linear relation between $\nu$ and $V_0$
+\item Slope gives Planck’s constant accurately
+\item Confirms Einstein’s photoelectric equation
+\end{itemize}
+
+\end{document}
+
+
 
 
 

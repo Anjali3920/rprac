@@ -461,7 +461,186 @@ Thus, radioactive decay law is verified.
 
 
 
-3rd
+3rd stefans boltzmann
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+
+
+\title{STEFANS BOLTZMAN LAW Practical }
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+%--------------------------------------------------
+\section*{Dataset  STEFAN BOLTZMAN LAW }
+
+\begin{tabular}{ccc}
+\toprule
+Star & Temperature (K) & Luminosity ($\times 10^{26}$ W) \\
+\midrule
+Proxima Cen & 3042 & 0.06 \\
+Barnard's Star & 3134 & 0.16 \\
+Sun & 5778 & 38.46 \\
+Alpha Cen A & 5790 & 47.50 \\
+Procyon A & 6530 & 70.00 \\
+Canopus & 7350 & 288.0 \\
+Vega & 9602 & 568.0 \\
+Sirius A & 9940 & 832.5 \\
+Sirius B & 25200 & 7.90 \\
+Rigel & 12100 & 5100 \\
+\bottomrule
+\end{tabular}
+
+%--------------------------------------------------
+\section*{Theory}
+
+Stefan-Boltzmann Law:
+
+\[
+L = \sigma A T^4
+\]
+
+This implies:
+
+\[
+L \propto T^4
+\]
+
+%--------------------------------------------------
+\section*{Mean and Median}
+
+Mean Temperature:
+\[
+\bar{T} = 8846.6 \text{ K}
+\]
+
+Median Temperature:
+\[
+8676 \text{ K}
+\]
+
+Mean Luminosity:
+\[
+\bar{L} = 675.3
+\]
+
+Median Luminosity:
+\[
+169
+\]
+
+\textbf{Observation:} Mean $>$ Median $\Rightarrow$ Right-skewed distribution.
+
+%--------------------------------------------------
+\section*{Log Transformation}
+
+To linearize:
+
+\[
+x = \log_{10}(T), \quad y = \log_{10}(L)
+\]
+
+%--------------------------------------------------
+\section*{Variance and Standard Deviation}
+
+Variance formula:
+
+\[
+\sigma^2 = \frac{\sum (x - \bar{x})^2}{n}
+\]
+
+(Standard deviation is $\sigma = \sqrt{\sigma^2}$)
+
+Since log values are closely spaced, variance is small.
+
+%--------------------------------------------------
+\section*{Correlation}
+
+\[
+r \approx 0.97
+\]
+
+\textbf{Interpretation:} Strong positive linear relationship in log-log space.
+
+%--------------------------------------------------
+\section*{Regression}
+
+\[
+\log L = n \log T + C
+\]
+
+\[
+n \approx 4
+\]
+
+Thus:
+
+\[
+L \propto T^4
+\]
+
+%--------------------------------------------------
+\section*{Graph (Log-Log Plot)}
+
+\begin{tikzpicture}
+\begin{axis}[
+xlabel={$\log(T)$},
+ylabel={$\log(L)$},
+title={Stefan-Boltzmann Law (Log-Log Plot)},
+grid=major
+]
+
+\addplot[
+only marks,
+mark=*
+]
+coordinates {
+(3.48,-1.22)
+(3.49,-0.79)
+(3.76,1.58)
+(3.76,1.67)
+(3.81,1.85)
+(3.87,2.46)
+(3.98,2.75)
+(3.99,2.92)
+(4.40,0.89)
+(4.08,3.70)
+};
+
+\end{axis}
+\end{tikzpicture}
+
+%--------------------------------------------------
+\section*{Chi-Square Test}
+
+\[
+\chi^2 = \sum \frac{(L_{obs} - L_{exp})^2}{L_{exp}}
+\]
+
+Where:
+
+\[
+L_{exp} = kT^4
+\]
+
+\textbf{Null Hypothesis:} Data follows $L \propto T^4$.
+
+\textbf{Result:} $\chi^2$ is small $\Rightarrow$ good agreement.
+
+%--------------------------------------------------
+\section*{Conclusion}
+
+The log-log plot gives a straight line with slope $\approx 4$.
+
+
+\end{document}
+
 
 
 

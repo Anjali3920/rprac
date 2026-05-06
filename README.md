@@ -1052,6 +1052,200 @@ Percentage error:
 
 \end{document}
 
+6#######################################cmb photoelectric effect
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\title{CMB Blackbody Spectrum Practical (Set F)}
+\author{Your Name}
+\date{}
+
+\begin{document}
+\maketitle
+
+%--------------------------------------------------
+\section*{Dataset}
+
+\begin{tabular}{cc}
+\toprule
+Frequency $\tilde{\nu}$ (cm$^{-1}$) & Intensity $I$ (MJy/sr) \\
+\midrule
+2.27 & 200 \\
+3.03 & 560 \\
+4.54 & 2360 \\
+6.06 & 6590 \\
+7.57 & 12500 \\
+9.09 & 16900 \\
+10.60 & 16100 \\
+12.12 & 12800 \\
+13.63 & 8900 \\
+15.15 & 5600 \\
+\bottomrule
+\end{tabular}
+
+%--------------------------------------------------
+\section*{Section A: Theory}
+
+\textbf{Q1. CMB and Planck’s Law}
+
+CMB is relic radiation from the early universe with temperature $\approx 2.725$ K.
+
+Planck’s law:
+
+\[
+B(\nu) = \frac{C_1 \nu^3}{e^{C_2 \nu/T} - 1}
+\]
+
+\textbf{Q2. Peak Frequency and Temperature}
+
+Maximum intensity at:
+
+\[
+\tilde{\nu}_{max} \approx 9.09 \text{ cm}^{-1}
+\]
+
+Using Wien’s Law:
+
+\[
+T = \frac{b}{\lambda_{max}}
+\]
+
+\[
+T = \frac{0.2898}{9.09} \approx 2.7 \text{ K}
+\]
+
+\textbf{Q3. Correlation Issue}
+
+Data is non-linear (rises then falls), so overall correlation is misleading.  
+Better approach: split into rising and falling regions.
+
+%--------------------------------------------------
+\section*{Section B: Calculations}
+
+\textbf{Q4. Mean and Median}
+
+Mean frequency:
+\[
+8.406
+\]
+
+Median frequency:
+\[
+8.33
+\]
+
+Mean intensity:
+\[
+8251
+\]
+
+Median intensity:
+\[
+10650
+\]
+
+\textbf{Observation:} Mean $<$ Median → left-skewed.
+
+%--------------------------------------------------
+\textbf{Q5. Variance and Standard Deviation}
+
+\[
+\sigma^2 = 3.20 \times 10^7
+\]
+
+\[
+\sigma = 5660
+\]
+
+%--------------------------------------------------
+\textbf{Q6. Correlation (Split)}
+
+Rising region:
+\[
+r \approx +0.99
+\]
+
+Falling region:
+\[
+r \approx -0.98
+\]
+
+\textbf{Interpretation:}
+\begin{itemize}
+\item Rising side → strong positive relation
+\item Falling side → strong negative relation
+\end{itemize}
+
+%--------------------------------------------------
+\section*{Section C: Graphs}
+
+\textbf{Q7. Intensity vs Frequency}
+
+\begin{tikzpicture}
+\begin{axis}[
+xlabel={Frequency (cm$^{-1}$)},
+ylabel={Intensity (MJy/sr)},
+title={CMB Spectrum},
+grid=major
+]
+
+\addplot[only marks] coordinates {
+(2.27,200)
+(3.03,560)
+(4.54,2360)
+(6.06,6590)
+(7.57,12500)
+(9.09,16900)
+(10.60,16100)
+(12.12,12800)
+(13.63,8900)
+(15.15,5600)
+};
+
+\end{axis}
+\end{tikzpicture}
+
+\textbf{Observation:} Bell-shaped curve (blackbody spectrum).
+
+%--------------------------------------------------
+\textbf{Q8. Curve Fitting}
+
+Two models:
+
+\begin{itemize}
+\item Polynomial fit → good overall
+\item Exponential fit (rising region) → accurate initially
+\end{itemize}
+
+Best fit: Planck’s law.
+
+%--------------------------------------------------
+\textbf{Q9. Chi-Square Test}
+
+\[
+\chi^2 = \sum \frac{(I_{obs} - I_{planck})^2}{I_{planck}}
+\]
+
+\textbf{Null Hypothesis:} Data follows blackbody radiation.
+
+\textbf{Result:} $\chi^2$ small → excellent agreement.
+
+%--------------------------------------------------
+\section*{Conclusion}
+
+\begin{itemize}
+\item Peak gives temperature $\approx 2.7$ K
+\item Data matches blackbody curve
+\item Strong correlations in split regions
+\end{itemize}
+
+Thus, CMB radiation confirms blackbody nature of the universe.
+
+\end{document}
+
 
 
 

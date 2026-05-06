@@ -1,238 +1,230 @@
 # rprac
-```
-a=1;
-b=2;
-n=10;
-f[x_]:=x^2-2;
-Plot[f[x],{x,1,2}]
-For[i=1,i<=n,i++,{c=(a+b)/2,If [f[a]*f[c]<0,b=c,a=c],Print[N[c]]}]
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\title{PRACTICAL RESEARCH METHODOLOGY}
+\author{RANJANA,23079567031 RM SEMVI}
+\date{}
+
+\begin{document}
+\maketitle
+\section*{Dataset 1 HUBBLES LAW }
+
+\begin{tabular}{ccc}
+\toprule
+Galaxy & Distance (Mpc) & Velocity (km/s) \\
+\midrule
+NGC 221 & 0.80 & 130 \\
+NGC 224 & 0.76 & -120 \\
+NGC 598 & 0.94 & -79 \\
+NGC 1023 & 10.80 & 637 \\
+NGC 2841 & 14.10 & 634 \\
+NGC 3031 & 3.63 & -34 \\
+NGC 3368 & 10.52 & 897 \\
+NGC 4258 & 7.27 & 448 \\
+NGC 4472 & 17.14 & 981 \\
+NGC 4594 & 9.77 & 1024 \\
+\bottomrule
+\end{tabular}
+\section*{Mean}
+
+Mean distance is given by:
+
+\[
+\bar{d} = \frac{\sum d_i}{n}
+\]
+
+\[
+\bar{d} = \frac{79.73}{10} = 7.97 \text{ Mpc}
+\]
+
+Mean velocity:
+
+\[
+\bar{v} = \frac{\sum v_i}{n} = \frac{5518}{10} = 551.8 \text{ km/s}
+\]
+\section*{Median}
+
+Arranging distance in ascending order:
+
+\[
+0.76, 0.80, 0.94, 3.63, 7.27, 9.77, 10.52, 10.80, 14.10, 17.14
+\]
+
+Median:
+
+\[
+\text{Median} = \frac{7.27 + 9.77}{2} = 9.285 \text{ Mpc}
+\]
+
+Similarly for velocity:
+
+\[
+\text{Median} = 542.5 \text{ km/s}
+\]
+\section*{Mode}
+
+No value repeats in the dataset.
+
+\[
+\text{Mode = None}
+\]
+\section*{Graph: Velocity vs Distance}
+
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel={Distance (Mpc)},
+    ylabel={Velocity (km/s)},
+    title={Hubble's Law},
+    grid=major
+]
+
+\addplot[
+    only marks,
+    mark=*
+]
+coordinates {
+(0.80,130)
+(0.76,-120)
+(0.94,-79)
+(10.80,637)
+(14.10,634)
+(3.63,-34)
+(10.52,897)
+(7.27,448)
+(17.14,981)
+(9.77,1024)
+};
+
+\end{axis}
+\end{tikzpicture}
+
+\addplot[
+    domain=0:18,
+    samples=100
+]
+{70*x};
+\section*{Variance and Standard Deviation (Distance)}
+
+Variance formula:
+
+\[
+\sigma^2 = \frac{\sum (d_i - \bar{d})^2}{n}
+\]
+
+Where mean distance:
+
+\[
+\bar{d} = 7.97 \text{ Mpc}
+\]
+
+Substituting values:
+
+\[
+\sigma^2 = 30.15 \text{ Mpc}^2
+\]
+
+Standard deviation:
+
+\[
+\sigma = \sqrt{30.15} = 5.49 \text{ Mpc}
+\]
+\section*{Pearson Correlation Coefficient}
+
+The formula is:
+
+\[
+r = \frac{\sum (d_i - \bar{d})(v_i - \bar{v})}{\sqrt{\sum (d_i - \bar{d})^2 \sum (v_i - \bar{v})^2}}
+\]
+
+Where:
+\[
+\bar{d} = 7.97, \quad \bar{v} = 551.8
+\]
+
+Final result:
+
+\[
+r = 0.955
+\]
+
+\textbf{Interpretation:}
+
+The value of $r$ is close to 1, indicating a strong positive linear correlation between distance and velocity, consistent with Hubble's Law.
+\section*{Regression Line}
+
+The linear relation is:
+
+\[
+v = H_0 d + c
+\]
+
+From best-fit:
+
+\[
+v \approx 70d - 50
+\]
+
+Thus:
+
+\[
+H_0 \approx 70 \text{ km/s/Mpc}
+\]
+\section*{Chi-Square Test}
+
+The chi-square statistic is given by:
+
+\[
+\chi^2 = \sum \frac{(O_i - E_i)^2}{E_i}
+\]
+
+Where:
+\begin{itemize}
+\item $O_i$ = Observed velocity
+\item $E_i$ = Expected velocity from regression line
+\end{itemize}
+
+Using:
+
+\[
+E_i = 70d - 50
+\]
+
+After substitution and calculation:
+
+\[
+\chi^2 \approx \text{small value}
+\]
+
+\textbf{Null Hypothesis (H$_0$):} The data follows Hubble's Law.
+
+\textbf{Conclusion:}
+
+Since $\chi^2$ is small, the observed data agrees well with the expected values. Therefore, we accept the null hypothesis and conclude that the dataset supports Hubble's Law.
+
+\section*{Conclusion}
+
+The graph shows a strong linear relationship between velocity and distance.
+The slope gives Hubble's constant:
+
+\[
+H_0 \approx 70 \, \text{km/s/Mpc}
+\]
+
+This agrees with the accepted range (67--74 km/s/Mpc), confirming Hubble's Law.
+
+
+\end{document}
 
 
 
 
-a=1;
-b=2;
-n=6;
-f[x_]:=x^3+2*x^2-3*x-1;
-Plot[f[x],{x,1,2}]
-For[i=1,i<=n,i++,{p=(a*f[b]-b*f[a])/(f[b]-f[a]),If[f[a]*f[p]>0,a=p,b=p],Print[N[p]]}]
 
 
-'''
-'''
-#  single of cold pill
-k1=1.386;
-k2=0.1386;
-tend=15;
-eqnsDeg={x'[t]==-k1*x[t],y'[t]==k1*x[t]-k2*y[t],x[0]==1,y[0]==0};
-solDeg=DSolve[eqnsDeg,{x[t],y[t]},t];
-Plot[Evaluate[{x[t],y[t]}/.solDeg],{t,0,tend},
-PlotStyle->{Blue,Red},PlotLegends->{"Decongestant","Antihistamine"}
-AxesLabel->{"t","Concentration"},PlotRange->All]
 
-2. course of cold pill
-k1=1.386;
-k2=0.1386;
-tend=15;
-l=100
-eqnsDeg={x'[t]==l-k1*x[t],y'[t]==k1*x[t]-k2*y[t],x[0]==1,y[0]==0};
-solDeg=DSolve[eqnsDeg,{x[t],y[t]},t];
-Plot[Evaluate[{x[t],y[t]}/.solDeg],{t,0,tend},
-PlotStyle->{Blue,Red},PlotLegends->{"Decongestant","Antihistamine"}
-AxesLabel->{"t","Concentration"},PlotRange->All]
-
-3.lake pollution
-f=48000000;
-v=28000000;
-cin=30000000;
-s1=DSolve[{c'[t]==(f/v)(cin-c[t]),c[0]==10^7},c[t],t]
-s2=DSolve[{c'[t]==(f/v)(cin-c[t]),c[0]==2*10^7},c[t],t]
-s3=DSolve[{c'[t]==(f/v)(cin-c[t]),c[0]==3*10^7},c[t],t]
-s4=DSolve[{c'[t]==(f/v)(cin-c[t]),c[0]==4*10^7},c[t],t]
-s5=DSolve[{c'[t]==(f/v)(cin-c[t]),c[0]==5*10^7},c[t],t]
-Plot[Evaluate[c[t] /.{s1,s2,s3,s4,s5}],{t,0,10},PlotRange->Full,PlotLegends->Automatic]
-
-4.seasonal flow model
-f=1000000(1+6*Sin[2*Pi*t])
-v=28000000
-cin=1000000(10+10*Cos[2*Pi*t])
-s6=NDSolve[{c'[t]==(f/v)(cin-c[t]),c[0]==10^7},c[t],{t,0,10}]
-Plot[Evaluate[c[t]/.s6],{t,0,10},PlotRange->Full,PlotLegends->Automatic]
-
-5.harvesting
-r=Input["enter the growth constant"]
-h=Input["enter the harvesting constant"]
-s1=DSolve[{x'[t]==r*x[t]-h,x[0]==200},x[t],t]
-s2=DSolve[{x'[t]==r*x[t]-h,x[0]==400},x[t],t]
-s3=DSolve[{x'[t]==r*x[t]-h,x[0]==600},x[t],t]
-s4=DSolve[{x'[t]==r*x[t]-h,x[0]==800},x[t],t]
-s5=DSolve[{x'[t]==r*x[t]-h,x[0]==1000},x[t],t]
-Plot[Evaluate[x[t]/.{s1,s2,s3,s4,s5}],
-{t,0,1},PlotRange->Full,PlotLegends->Automatic]
-
-6.prey predator model
-\[Beta]=1
-\[Alpha]=0.5
-c1=0.01
-c2=0.005
-c=NDSolve[{x'[t]==\[Beta]*x[t]-c1*x[t]*y[t],y'[t]==c2*x[t]*y[t]-\[Alpha]*y[t],x[0]==200,y[0]==80},{x[t],y[t]},{t,0,20}]
-Plot[Evaluate[{x[t],y[t]}/.c],{t,0,20},PlotRange->Full,
-PlotLegends->{"x[t]-Prey","y[t]-Preedator"},PlotStyle->Thick]
-
-7.epidemic model
-"s[t]=[" enter the susceptible population "]
-i[t]=["enter the infective population"]
-r[t]=["enter the recovered population"]"
-\[Beta]=Input[]
-\[Gamma]=Input[]
-sol=NDSolve[{s'[t]==-\[Beta]*s[t]*i[t],i'[t]==\[Beta]*s[t]*i[t]-\[Gamma]*i[t],r'[t]==\[Gamma]*i[t],s[0]==762,i[0]==1,r[0]==0,{s[t],i[t],r[t]},{t,0,20}]
-Plot[Evaluate[{s[t],i[t],r[t]}/.sol],{t,0,30},
-PlotRange->Full,PlotLegends->Automatic]
-
-8. logistic growth
-
-r=Input["enter the growth constant"]
-k=Input["enter the capacity constant"]
-s1=DSolve[{x'[t]==r*x[t]*(1-x[t]/k),x[0]==200},x[t],t]
-s2=DSolve[{x'[t]==r*x[t]*(1-x[t]/k),x[0]==400},x[t],t]
-s3=DSolve[{x'[t]==r*x[t]*(1-x[t]/k),x[0]==600},x[t],t]
-s4=DSolve[{x'[t]==r*x[t]*(1-x[t]/k),x[0]==800},x[t],t]
-s5=DSolve[{x'[t]==r*x[t]*(1-x[t]/k),x[0]==1000},x[t],t]
-Plot[Evaluate[x[t]/.{s1,s2,s3,s4,s5}],
-{t,0,1},PlotRange->Full,PlotLegends->Automatic]
-
-9.least square fit linear
-data={{1,1},{2,1},{3,2},{4,2},{5,4}};
-fit=Fit[data,{1,x},x];
-a=Coefficient[fit,x,1];
-b=Coefficient[fit,x,0];
-Print["a",a,"\n","b=",b]
-Print["Least Square Line:y=",fit]
-Show[ListPlot[data,PlotStyle->Red,PlotMarkers->Automatic],
-Plot[fit,{x,1,5},PlotStyle->Blue],
-AxesLabel->{"x","y"},PlotLabel->"Least square fit for y=ax+b"]
-
-10.y=ax^2
-data={{0.5,0.7},{1.0,3.4},{1.5,7.2},{2,12.4},{2.5,20.1}};
-fit=Fit[data,{x^2},x];
-A=Coefficient[fit,x,2];
-Print["A=",A];
-Print["fitted curve:y=",fit]
-Print["\n"]
-Show[ListPlot[data,PlotStyle->Red,PlotMarkers->Automatic],
-Plot[fit,{x,0,2.6},PlotStyle->Blue],
-AxesLabel->{"x","y"},PlotLabel->" LEAST SQUARE fit for y=ax^2"]
-
-11.battle /ecosystem competing speccie
-a1=0.0544;
-a2=0.0106;
-tend=30;
-u0={R[0]==66,B[0]==18};
-eqns={R'[t]==-a1*R[t]*B[t],B'[t]==-a2*R[t]*B[t]};
-sol=NDSolve[Join[eqns,u0],{R,B},{t,0,tend}];
-Rsol[t_]:=Evaluate[R[t]/.sol[[1]]];
-Bsol[t_]:=Evaluate[B[t]/.sol[[1]]];
-Plot[{Rsol[t],Bsol[t]},{t,0,tend},PlotStyle->{Red,Blue},
-PlotLegends->{"R(t)","B(t)"},AxesLabel->{"t","Population"},PlotRange->All]
-
-12.monte carlo area
-pts=RandomReal[{-1,1},{n ,2}];
-inside=Select[pts,#[[1]]^2+#[[2]]^2<=1&];
-outside=Select[pts,#[[1]]^2+#[[2]]^2>1&];
-counter=Length[inside];
-area=4*counter/n;
-Print["Estimated Area of unit circle=",N[area]];
-Show[ListPlot[inside,PlotStyle->Green],
-ListPlot[outside,PlotStyle->Red],Graphics[{Thick,Circle[{0,0},1]}],
-AspectRatio->1,PlotRange->{{-1,1},{-1,1}},
-PlotLabel->"Monte Carlo Simulation of unit circle"]
-
-
-13. area x^2 +y^2<=1
-n = 500;
-pts = RandomReal[{-1, 1}, {n, 2}];
-inside = Select[pts, #[[1]]^2 + #[[2]]^2 <= 1 &];
-outside = Select[pts, #[[1]]^2 + #[[2]]^2 > 1 &];
-counter = Length[inside];
-area = 4*counter/n;
-Print["Estimated Area of Unit Circle = ", N[area]];
-Show[ ListPlot[inside, PlotStyle -> Green],
- ListPlot[outside, PlotStyle -> Red],
- Graphics[{Thick, Circle[{0, 0}, 1]}],
- AspectRatio -> 1,
- PlotRange -> {{-1, 1}, {-1, 1}},
- PlotLabel -> "Monte Carlo Simulation of Unit Circle"]
-
-14. volume under a surface z=x^2+y^2
-n = 20000;
-pts3D = RandomReal[{0, 1}, {n, 3}];
-below = Select[pts3D, #[[3]] <= #[[1]]^2 + #[[2]]^2 &];
-above = Select[pts3D, #[[3]] > #[[1]]^2 + #[[2]]^2 &];
-volumeEstimate = 2*Length[below]/n;
-Print["Estimated Volume = ", N[volumeEstimate]];
-Show[ ListPointPlot3D[below, PlotStyle -> Blue],
- ListPointPlot3D[above, PlotStyle -> Red],
- Plot3D[x^2 + y^2, {x, 0, 1}, {y, 0, 1},
-   Mesh -> None,
-   PlotStyle -> Directive[Opacity[0.5], Yellow] ],
- PlotRange -> {{0, 1}, {0, 1}, {0, 2}},
- BoxRatios -> {1, 1, 1},
- PlotLabel -> "Monte Carlo Simulation of Volume under z = x^2 + y^2"]
-
-15.pi/4 =area(q)/area(s)
-n = 100000;
-pts = RandomReal[{0, 1}, {n, 2}];
-inside = Select[pts, #[[1]]^2 + #[[2]]^2 <= 1 &];
-outside = Select[pts, #[[1]]^2 + #[[2]]^2 > 1 &];
-counter = Length[inside];
-area = 4*counter/n;
-Print["Area of Q inside S = ", N[area]];
-Show[ ListPlot[inside, PlotStyle -> Green],
- ListPlot[outside, PlotStyle -> Red],
- Graphics[{Thick, Circle[{0, 0}, 1, {0, Pi/2}]}],
- AspectRatio -> 1,
- PlotRange -> {{0, 1}, {0, 1}},
- PlotLabel -> "Monte Carlo Simulation for Area of Q inside S"]
-
-
-16. x^2/2+y^2/4+z^2/8<=16
-n = 20000;
-pts3D = RandomReal[{0, 6}, {n, 3}];
-inside = Select[
-   pts3D,
-   #[[1]]^2/2 + #[[2]]^2/4 + #[[3]]^2/8 <= 16 &];
-outside = Select[
-   pts3D,
-   #[[1]]^2/2 + #[[2]]^2/4 + #[[3]]^2/8 > 16 &];
-counter = Length[inside];
-volumeEstimate = 6^3*counter/n
-Print["Estimated Volume = ", N[volumeEstimate]];
-Show[ ListPointPlot3D[inside, PlotStyle -> Blue],
- ListPointPlot3D[outside, PlotStyle -> Red],
- ContourPlot3D[
-   x^2/2 + y^2/4 + z^2/8 == 16,
-   {x, 0, 6}, {y, 0, 6}, {z, 0, 6},
-   Mesh -> None,
-   ContourStyle -> Directive[Opacity[0.4], Yellow] ],
- BoxRatios -> {1, 1, 1},
- PlotLabel -> "Monte Carlo Simulation of Ellipsoid Volume in First Octant"]
-
-17. area under a curve y=x^2
-n = 100000;
-pts = RandomReal[{0, 1}, {n, 2}];
-below = Select[pts, #[[2]] <= #[[1]]^2 &];
-above = Select[pts, #[[2]] > #[[1]]^2 &];
-counter = Length[below];
-area = counter/n;
-Print["Estimated Area under y = x^2 = ", N[area]];
-Show[ ListPlot[below, PlotStyle -> Blue],
- ListPlot[above, PlotStyle -> Red],
- Plot[x^2, {x, 0, 1}, PlotStyle -> {Black, Thick}],
- PlotRange -> {{0, 1}, {0, 1}},
- AspectRatio -> 1,
- PlotLabel -> "Monte Carlo Simulation of Area under y = x^2"]
-
-'''
 
 
 

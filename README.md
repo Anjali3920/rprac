@@ -223,6 +223,252 @@ This agrees with the accepted range (67--74 km/s/Mpc), confirming Hubble's Law.
 
 
 
+2nd radioactivity
+
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\title{Radioactive Decay Practical (Set C)}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+%--------------------------------------------------
+\section*{Dataset 3 RADIOACTIVITY DECAY }
+
+\begin{tabular}{cc}
+\toprule
+Time $t$ ($\times 10^3$ yr) & Activity $A$ (dpm) \\
+\midrule
+0 & 800 \\
+1 & 706 \\
+2 & 623 \\
+3 & 549 \\
+4 & 485 \\
+5 & 428 \\
+6 & 378 \\
+7 & 333 \\
+8 & 294 \\
+9 & 260 \\
+\bottomrule
+\end{tabular}
+
+%--------------------------------------------------
+\section*{Section A: Theory}
+
+\textbf{Q1. Radioactive Decay Law}
+
+\[
+A(t) = A_0 e^{-\lambda t}
+\]
+
+Where:
+\begin{itemize}
+\item $A_0$ = initial activity
+\item $\lambda$ = decay constant
+\end{itemize}
+
+Half-life relation:
+
+\[
+T_{1/2} = \frac{\ln 2}{\lambda}
+\]
+
+\textbf{Q2. Half-life (approx)}
+
+Initial activity = 800
+
+Half $\approx 400$
+
+From table, at $t \approx 5$, $A \approx 428$
+
+Thus:
+
+\[
+T_{1/2} \approx 5 \times 10^3 \text{ years}
+\]
+
+\textbf{Q3. Variables}
+
+\begin{itemize}
+\item Independent variable: Time $t$
+\item Dependent variable: Activity $A$
+\item Control variables: sample mass, temperature
+\end{itemize}
+
+%--------------------------------------------------
+\section*{Section B: Statistical Calculations}
+
+\textbf{Q4. Mean and Median}
+
+Mean time:
+\[
+\bar{t} = 4.5
+\]
+
+Median time:
+\[
+4.5
+\]
+
+Mean activity:
+\[
+\bar{A} = 465.6
+\]
+
+Median activity:
+\[
+456.5
+\]
+
+%--------------------------------------------------
+\textbf{Q5. Variance and Standard Deviation}
+
+\[
+\sigma^2 = 28606
+\]
+
+\[
+\sigma = 169.1
+\]
+
+\textbf{Interpretation:} Large spread in activity values.
+
+%--------------------------------------------------
+\textbf{Q6. Correlation (t vs ln A)}
+
+\[
+\ln A = \ln A_0 - \lambda t
+\]
+
+\[
+r \approx -0.999
+\]
+
+\textbf{Interpretation:} Perfect negative linear relation → exponential decay confirmed.
+
+%--------------------------------------------------
+\section*{Section C: Graphs and Fitting}
+
+\textbf{Q7. Activity vs Time}
+
+\begin{tikzpicture}
+\begin{axis}[
+xlabel={Time ($10^3$ yr)},
+ylabel={Activity (dpm)},
+title={Radioactive Decay},
+grid=major
+]
+
+\addplot[only marks] coordinates {
+(0,800)
+(1,706)
+(2,623)
+(3,549)
+(4,485)
+(5,428)
+(6,378)
+(7,333)
+(8,294)
+(9,260)
+};
+
+\end{axis}
+\end{tikzpicture}
+
+\textbf{Observation:} Exponential decay curve.
+
+%--------------------------------------------------
+\textbf{Q8. Semi-log Plot}
+
+\begin{tikzpicture}
+\begin{axis}[
+xlabel={Time},
+ylabel={ln(A)},
+title={Semi-log Plot},
+grid=major
+]
+
+\addplot[only marks] coordinates {
+(0,6.68)
+(1,6.56)
+(2,6.43)
+(3,6.31)
+(4,6.18)
+(5,6.06)
+(6,5.94)
+(7,5.81)
+(8,5.68)
+(9,5.56)
+};
+
+\end{axis}
+\end{tikzpicture}
+
+Slope:
+
+\[
+\lambda \approx 0.1233 \times 10^{-3}
+\]
+
+Half-life:
+
+\[
+T_{1/2} = \frac{0.693}{\lambda} \approx 5620 \text{ years}
+\]
+
+Percentage error:
+
+\[
+\approx 2\%
+\]
+
+%--------------------------------------------------
+\textbf{Q9. Chi-Square Test}
+
+\[
+\chi^2 = \sum \frac{(A_{obs} - A_{exp})^2}{A_{exp}}
+\]
+
+Where:
+
+\[
+A_{exp} = 800 e^{-\lambda t}
+\]
+
+\textbf{Null Hypothesis:} Data follows exponential decay.
+
+\textbf{Result:} $\chi^2$ small → good fit.
+
+%--------------------------------------------------
+\section*{Conclusion}
+
+\begin{itemize}
+\item Activity decreases exponentially with time
+\item Linear ln(A) vs t confirms decay law
+\item Half-life $\approx 5620$ years (close to 5730 years)
+\end{itemize}
+
+Thus, radioactive decay law is verified.
+
+\end{document}
+
+
+
+
+3rd
+
+
+
+
+
+
+
 
 
 

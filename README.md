@@ -1250,6 +1250,180 @@ Thus, CMB radiation confirms blackbody nature of the universe.
 
 
 
+#############python voding
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Data
+x = np.array([0.80,0.76,0.94,10.80,14.10,3.63,10.52,7.27,17.14,9.77])
+
+y = np.array([130,-120,-79,637,634,-34,897,448,981,1024])
+
+# Best fit line
+m, c = np.polyfit(x, y, 1)
+
+# Equation of line
+y_fit = m*x + c
+
+# Plot
+plt.scatter(x, y, label="Data Points")
+
+plt.plot(x, y_fit, label="Best Fit Line")
+
+plt.xlabel("Distance (Mpc)")
+plt.ylabel("Velocity (km/s)")
+plt.title("Hubble's Law")
+
+plt.grid()
+plt.legend()
+
+plt.show()
+
+# Slope and intercept
+print("Slope =", m)
+print("Intercept =", c)
+
+2ndddddddddddd
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.array([5.49,5.96,6.18,6.88,7.41,8.22,9.14,10.03,10.96,11.79])
+
+y = np.array([0.62,0.81,0.92,1.20,1.43,1.78,2.18,2.57,2.97,3.32])
+
+m, c = np.polyfit(x, y, 1)
+
+y_fit = m*x + c
+
+plt.scatter(x, y)
+
+plt.plot(x, y_fit)
+
+plt.xlabel("Frequency")
+plt.ylabel("Stopping Potential")
+
+plt.grid()
+
+plt.show()
+
+3rddddddddddddddddddddddddd
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.array([3042,3134,5778,5790,6530,7350,9602,9940,25200,12100])
+
+y = np.array([0.06,0.16,38.46,47.5,70,288,568,832.5,7.9,5100])
+
+m, c = np.polyfit(x, y, 1)
+
+y_fit = m*x + c
+
+plt.scatter(x, y)
+
+plt.plot(x, y_fit)
+
+plt.xlabel("Temperature (K)")
+plt.ylabel("Luminosity")
+
+plt.title("Stefan-Boltzmann Law")
+
+plt.grid()
+
+plt.show()
+
+print("Slope =", m)
+print("Intercept =", c)
+
+4TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.array([0,1,2,3,4,5,6,7,8,9])
+
+y = np.array([800,706,623,549,485,428,378,333,294,260])
+
+m, c = np.polyfit(x, y, 1)
+
+y_fit = m*x + c
+
+plt.scatter(x, y)
+
+plt.plot(x, y_fit)
+
+plt.xlabel("Time")
+
+plt.ylabel("Activity")
+
+plt.title("Radioactive Decay")
+
+plt.grid()
+
+plt.show()
+
+print("Slope =", m)
+print("Intercept =", c)
+
+5TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.array([0.387,0.723,1.0,1.524,2.767,5.203,9.537,19.191,30.069,39.482])
+
+y = np.array([0.241,0.615,1.0,1.881,4.6,11.862,29.457,84.011,164.8,248.0])
+
+m, c = np.polyfit(x, y, 1)
+
+y_fit = m*x + c
+
+plt.scatter(x, y)
+
+plt.plot(x, y_fit)
+
+plt.xlabel("Radius (AU)")
+
+plt.ylabel("Period (Years)")
+
+plt.title("Kepler's Third Law")
+
+plt.grid()
+
+plt.show()
+
+print("Slope =", m)
+print("Intercept =", c)
+
+6thhhhhhhhhhhhhhhhhhhhhhhhhhhh
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.array([2.27,3.03,4.54,6.06,7.57,9.09,10.60,12.12,13.63,15.15])
+
+y = np.array([200,560,2360,6590,12500,16900,16100,12800,8900,5600])
+
+m, c = np.polyfit(x, y, 1)
+
+y_fit = m*x + c
+
+plt.scatter(x, y)
+
+plt.plot(x, y_fit)
+
+plt.xlabel("Frequency")
+
+plt.ylabel("Intensity")
+
+plt.title("CMB Spectrum")
+
+plt.grid()
+
+plt.show()
+
+print("Slope =", m)
+print("Intercept =", c)
+
+
+
+
 
 
 

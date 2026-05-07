@@ -1,4 +1,5 @@
 # rprac
+
 \documentclass{article}
 \usepackage{amsmath}
 \usepackage{booktabs}
